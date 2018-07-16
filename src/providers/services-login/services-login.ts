@@ -14,6 +14,10 @@ export class ServicesLoginProvider {
   apiUrlPass = 'http://appsausol.com.ar.elserver.com/saveNewPass.php';
   apiUrlPagos = 'http://appsausol.com.ar.elserver.com/getClientes.php';
   apiUrlNotas = 'http://appsausol.com.ar.elserver.com/getCuentas.php';
+  apiUrlCliente = 'http://appsausol.com.ar.elserver.com/getCliente.php';
+  apiUrlProveedor = 'http://appsausol.com.ar.elserver.com/getProveedor.php';
+  apiUrlProveedores = 'http://appsausol.com.ar.elserver.com/getProveedores.php';
+  apiUrlProveedoresComprados = 'http://appsausol.com.ar.elserver.com/getProveedoresComprados.php';
 
   constructor(public http: HttpClient) {
     console.log('Hello ServicesLoginProvider Provider');
@@ -65,10 +69,43 @@ export class ServicesLoginProvider {
   }
 
   getNotas(id){
-    console.log(id)
-
-
     return this.http.get(this.apiUrlNotas+'?id='+id)
+      .map(res => {
+          return res;
+        }, (err) => {
+          console.log(err);
+        });
+  }
+
+  getCliente(id){
+    return this.http.get(this.apiUrlCliente+'?id='+id)
+      .map(res => {
+          return res;
+        }, (err) => {
+          console.log(err);
+        });
+  }
+
+  getProveedor(id){
+    return this.http.get(this.apiUrlProveedor+'?id='+id)
+      .map(res => {
+          return res;
+        }, (err) => {
+          console.log(err);
+        });
+  }
+
+  getProveedores(){
+    return this.http.get(this.apiUrlProveedores)
+      .map(res => {
+          return res;
+        }, (err) => {
+          console.log(err);
+        });
+  }
+
+  getProveedoresComprados(id){
+    return this.http.get(this.apiUrlProveedoresComprados+'?id='+id)
       .map(res => {
           return res;
         }, (err) => {

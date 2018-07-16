@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color=primary>
+    <ion-title>
+      Cliente: {{cliente}}
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="pagos">
+        Cuentas Corrientes
+      </ion-segment-button>
+      <ion-segment-button value="notas">
+        Prov/Compr
+      </ion-segment-button>
+      <ion-segment-button value="descargar">
+        Prov/NC
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="pet">
+
+    <div *ngSwitchCase="'pagos'">
+
+      <div class="row header">
+        <div class="col">Número</div>
+        <div class="col">Fecha</div>
+        <div class="col">Importe</div>
+      </div>
+
+      <div class="row" *ngFor="let item of ventas">
+        <div class="col">{{item.numero}}</div>
+        <div class="col">{{item.fecha |  date:'dd/MM/yyyy' | uppercase}}</div>
+        <div *ngIf="item.codmov < 6" style="color:red" class="col">- $ {{item.importe}}</div>
+        <div *ngIf="item.codmov > 5" style="color:green" class="col"> $ {{item.importe}}</div>
+      </div>
+
+      <button *ngIf="suma !=0" ion-button full large >Total: $ {{ suma }}</button>
+
+    </div>
+
+
+
+    <ion-list *ngSwitchCase="'notas'">
+      <ion-item *ngFor="let item of comprados">
+        <div style="width:100%; background-color:#f8f8f8; padding:2%">
+          <h2 style="border-bottom:0px solid #888; padding-bottom: 0px; margin-bottom:8px"> {{item.nombre}}</h2>
+          <hr *ngIf="noComprados.cant">
+          <p *ngIf="item.cant">Cantidad de compras: {{item.cant }}</p>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'descargar'">
+      <ion-item *ngFor="let item of noComprados">
+        <div style="width:100%; background-color:#f8f8f8; padding:2%">
+          <h2 style="padding-bottom: 0px; margin-bottom:0px"> {{item.nombre}}</h2>
+          <hr *ngIf="noComprados.cant">
+          <p *ngIf="noComprados.cant">Cantidad de compras {{item.cant }}</p>
+
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

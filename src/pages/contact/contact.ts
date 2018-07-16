@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { InfoClientePage } from '../info-cliente/info-cliente';
+
 import { ServicesLoginProvider } from '../../providers/services-login/services-login';
 
 @Component({
@@ -14,6 +16,7 @@ export class ContactPage {
   nombre:string;
   datosPagos = []
   datosNotas = []
+
 
   constructor(
     public navCtrl: NavController,
@@ -31,12 +34,13 @@ export class ContactPage {
           console.log(this.datosPagos)
         })
 
-    this._login.getNotas(this.id)
-        .subscribe((resp:any)=>{
-          console.log(resp);
-          this.datosNotas = resp;
-          console.log(this.datosNotas)
-        })
+  }
+
+  goToMyPage(id) {
+    // go to the MyPage component
+    this.navCtrl.push('InfoClientePage', {
+      'id': id
+    });
   }
 
 }
